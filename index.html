@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+	<canvas id="gameCanvas" width="800" height="600"></canvas>
+
+	<script>
+		var canvas;
+		var canvasContext;
+		var ballX = 50;
+		var ballSpeedX = 5;
+
+		window.onload = function(){
+
+			canvas = document.getElementById('gameCanvas');
+			canvasContext = canvas.getContext('2d');
+			var framesPerSecond = 60;
+			// function calls for movement and draw
+			setInterval(function(){
+				moveEverything();
+				drawEverything();
+
+			}, 1000/framesPerSecond);
+
+
+		}
+		// ball movement function
+		function moveEverything() {
+			ballX += ballSpeedX;
+			if(ballX >= canvas.width){
+				ballSpeedX = -ballSpeedX;
+			}
+			if(ballX <= 0){
+				ballSpeedX = -ballSpeedX;
+			}
+		}
+
+		function drawEverything() {
+
+			// canvas background/size
+			colorRect(0, 0, canvas.width, canvas.height, 'black');
+
+			// player paddle
+			colorRect(0, 210, 10, 80, 'white');
+
+			// ball
+			canvasContext.fillStyle = 'red';
+			canvasContext.beginPath();
+			canvasContext.arc(ballX, 50, 5, 0, Math.PI*2, true);
+			canvasContext.fill();
+		}
+
+		// draw function
+		function colorRect (leftX, topY, width, height, drawColor){
+			canvasContext.fillStyle = drawColor;
+			canvasContext.fillRect(leftX, topY, width, height);
+		}
+		
+	</script>
+
+</body>
+</html>
